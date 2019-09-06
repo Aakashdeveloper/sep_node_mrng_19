@@ -1,0 +1,41 @@
+Json
+JavaScript Object Notation
+
+
+/****************
+    Node Verison
+****************/
+node -v
+
+
+local package
+Global Package
+
+
+/**********************************
+    Step To Create Package.json
+**********************************/
+> Navigate to the folder using cmd
+> npm init
+> Answer all Question
+> Type yes
+
+/**********************************
+    Install Local Package
+**********************************/
+> Navigate to the folder using cmd
+> npm install zone.js / npm i zone.js / npm install zone.js --save
+
+
+dependency use for setup, install, test
+
+
+/**********************************
+    Install Global Package
+**********************************/
+Win
+> Run cmd as adminstrator
+> npm i -g @aakashdeveloper/create-node-app
+
+Mac/linux
+sudo npm i -g @aakashdeveloper/create-node-app
