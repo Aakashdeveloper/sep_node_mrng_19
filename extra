@@ -39,3 +39,5 @@ Win
 
 Mac/linux
 sudo npm i -g @aakashdeveloper/create-node-app
+
+npm i ejs
