@@ -26,11 +26,11 @@
     </div>
     <nav class="collapse navbar-collapse" role="navigation">
       <ul class="nav navbar-nav">
-        <% for(var i=0;i<menu.length;i++){%>
-        <li>
-          <a href="<%=menu[i].link%>"><%=menu[i].name%></a>
-        </li>
-        <%}%>
+            <% for(var i=0;i<menu.length;i++){%>
+                    <li>
+                      <a href="<%=menu[i].link%>"><%=menu[i].name%></a>
+                    </li>
+                    <%}%>
       </ul>
       <ul class="nav navbar-right navbar-nav">
         <li class="dropdown">
@@ -89,14 +89,14 @@
           
           
           <!--/stories-->
-          <%for(var i=0; i<movies.length ;i++){%>
+          <%for(var i=0; i<artist.length ;i++){%>
           <div class="row">    
             <br>
             <div class="col-md-2 col-sm-3 text-center">
-              <a class="story-title" href="#"><img alt="" src="<%=movies[i].imageUrl%>" style="width:100px;height:100px" class="img-circle"></a>
+              <a class="story-title" href="#"><img alt="" src="<%=artist[i].imageUrl%>" style="width:100px;height:100px" class="img-circle"></a>
             </div>
             <div class="col-md-10 col-sm-9">
-              <h3><%=movies[i].name%></h3>
+              <h3><%=artist[i].productName%></h3>
               <div class="row">
                 <div class="col-xs-9">
                   <h4><span class="label label-default">97thfloor.com</span></h4><h4>
