@@ -1,7 +1,7 @@
 var express = require('express');
-var artistRouter = express.Router();
+var productRouter = express.Router();
 
-var artist = [
+var product = [
   {
     "_id": "5a05dacc734d1d68d42d31f3",
     "productId": 1,
@@ -47,18 +47,20 @@ var artist = [
     "imageUrl": "https://i.ibb.co/vmS3kRH/saw.png"
   }
 ]
-var menu = [
-    {name:'Home', link:'/'},
-    {name:'Artist', link:'/artist'},
-    {name:'Movies', link:'/movies'}
-]
 
-artistRouter.route('/')
+function router(menu){
+  productRouter.route('/')
     .get(function(req,res){
-    res.render('artists',{title:'Artists',movies: movies,menu})
-});
+      res.render('products',{title:'product',product: product,menu})
+  });
 
-artistRouter.route('/details')
+  productRouter.route('/details/:id')
     .get(function(req,res){
-    res.render('artists',{title:'Artists Details',movies: movies,menu})
-});
+      res.render('productDetails',{title:'Product Details',product: product,menu})
+  });
+  
+  return productRouter
+}
+
+
+module.exports = router;

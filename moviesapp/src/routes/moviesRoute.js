@@ -60,19 +60,30 @@ var movies = [
       }
 ]
 
-var menu = [
-    {name:'Home', link:'/'},
-    {name:'Artist', link:'/artist'},
-    {name:'Movies', link:'/movies'}
-]
+function router(menu){
 
-moviesRouter.route('/')
+  moviesRouter.route('/')
+      .get(function(req,res){
+        res.render('movies',{title:'Movies Page',movies: movies, menu})
+  });
+
+
+  moviesRouter.route('/details/:id')
     .get(function(req,res){
-        res.render('home',{title:'Movies Page',movies: movies, menu})
-    });
+      res.render('details',{title:'Movies Details',movies: movies,menu})
+  });
+
+  return moviesRouter
+
+}
+
+module.exports = router;
 
 
-moviesRouter.route('/details')
-    .get(function(req,res){
-        res.render('details',{title:'Movies Details',movies: movies,menu})
-    });
+/*
+function add(a,b){
+  return a+b
+}
+
+add(1,2)
+*/
