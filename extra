@@ -41,3 +41,42 @@ Mac/linux
 sudo npm i -g @aakashdeveloper/create-node-app
 
 npm i ejs
+
+/**********************************
+   Y No Sql
+**********************************/
+
+|Sno| Hindi | English
+----------------------
+| 1 |   80  |
+----------------------
+| 2 |       | 80
+-----------------------
+| 3 |   70  | 
+
+[
+    {
+        sno:1,
+        Hindi:80
+    },
+    {
+        sno:2
+        English:80
+    }
+]
+
+SQL                   NoSQl
+database           database
+table              collections
+row                document
+
+show dbs 
+use dbname
+show collections
+
+//Find
+db.collectionsname.find()
+db.products.find({productName:"Saw"}).pretty()
+db.first.insert({"name":"nareshit","subject":"node"})
+db.first.update({name:"ankit"},{$set:{subject:"Angular"}},{upsert:true})
+db.first.remove({})
