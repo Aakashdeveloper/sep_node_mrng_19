@@ -80,3 +80,22 @@ db.products.find({productName:"Saw"}).pretty()
 db.first.insert({"name":"nareshit","subject":"node"})
 db.first.update({name:"ankit"},{$set:{subject:"Angular"}},{upsert:true})
 db.first.remove({})
+
+
+
+var a = 10
+var b = "my age is "+a  
+var b = `my age is ${a}`
+
+
+function add(a,b){
+    return a+b
+}
+
+var add = (a,b) => { return a+b }
+
+Email with node
+Redis
+JWT
+Es6
+oo_nodejs
