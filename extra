@@ -99,3 +99,11 @@ Redis
 JWT
 Es6
 oo_nodejs
+
+CRUD
+Create Read Update Delete
+
+babel
+
+npm install @babel/core @babel/preset-env @babel/register
+babel-polyfill

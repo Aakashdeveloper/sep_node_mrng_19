@@ -1,12 +1,16 @@
-var express = require('express');
-var mongo = require('mongodb');
-var bodyParser = require('body-parser');
-var MongoClient = mongo.MongoClient;
-var app = express();
-var port = process.env.PORT || 7600;
-var db;
-var mongourl = "mongodb://127.0.0.1:27017/";
-var col_name = 'julynode'
+import express from 'express';
+import mongo from 'mongodb';
+import bodyParser from 'body-parser';
+const MongoClient = mongo.MongoClient;
+const app = express();
+const port = process.env.PORT || 7600;
+let db;
+const mongourl = "mongodb://127.0.0.1:27017/";
+const col_name = 'julynode'
+
+app.use(express.static(__dirname+'/public'));
+app.set('views','./src/views');
+app.set('view engine','ejs');
 
 // For fetching data from body
 app.use(bodyParser.urlencoded({extended:true}))
@@ -23,7 +27,7 @@ app.get('/user',(req,res) => {
         }else{
             res.setHeader('Access-Control-Allow-Origin','*')
             res.setHeader('Access-Control-Allow_headers','Origin,X-Request-With,Content-Type,Accept')
-            res.status(200).send(result)
+            res.status(200).render('index',{data:result})
         }
     })
 })
@@ -39,6 +43,31 @@ app.post('/addUser',(req,res) => {
         }
     )
 })
+
+app.put('/updateUser',(req,res) => {
+    db.collection(col_name).findOneAndUpdate({"name":req.body.name},{
+        $set:{
+            id:req.body.id,
+            name:req.body.name,
+            email:req.body.email
+        }
+    },{
+        upsert:true
+    },(err,result) => {
+        if(err) throw err;
+        res.send('Data Updated')
+    })
+})
+
+app.delete('/deleteuser',(req,res) => {
+    db.collection(col_name).findOneAndDelete({
+        "name":req.body.name 
+    },(err,result) => {
+        if(err) throw errr;
+        res.send('Data Deleted')
+    })
+})
+
 
 MongoClient.connect(mongourl,(err,client) => {
     if(err) throw err;
