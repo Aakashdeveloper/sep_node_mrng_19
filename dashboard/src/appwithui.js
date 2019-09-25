@@ -33,15 +33,32 @@ app.get('/user',(req,res) => {
 })
 
 app.post('/addUser',(req,res) => {
-    db.collection(col_name).insertOne(req.body,(
+    console.log(req.body)
+    var data = {
+        "id":parseInt(req.body.id),
+        "name":req.body.name,
+        "email":req.body.email
+    }
+    db.collection(col_name).insertOne(data,(
         err,result)=>{
             if(err){
                 res.status(401).send('No data Found')
             }else{
-                res.status(200).send('Data Added SuccessFully')
+                res.redirect('/user')
             }
         }
     )
+})
+
+
+app.post('/find_by_id',(req,res) => {
+    let id = req.body.id;
+    db.collection(col_name)
+      .find({id:id})
+      .toArray((err,result) =>{
+          if(err) throw err;
+          res.send(result)
+      })
 })
 
 app.put('/updateUser',(req,res) => {
@@ -68,6 +85,10 @@ app.delete('/deleteuser',(req,res) => {
     })
 })
 
+app.get('/new',(req,res) => {   
+    let id = Math.floor(Math.random()*1000)
+    res.render('admin',{id:id})
+})
 
 MongoClient.connect(mongourl,(err,client) => {
     if(err) throw err;

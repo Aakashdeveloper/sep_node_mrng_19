@@ -23,7 +23,7 @@
                 <div class="collpase navbar-collapse" id="collapsibleNavbar">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Home</a>
+                            <a class="nav-link" href="/user">Home</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="/new">Add new</a>
@@ -53,7 +53,7 @@
                             <td>
                                 <button type="button" class="update btn btn-warning"
                                  data-toggle="modal" data-target="#myModal"
-                                 id="<%=data[i].name%>">Edit</button>
+                                 id="<%=data[i].id%>">Edit</button>
                                 <button type="button" class="delete btn btn-danger" id="<%=data[i].name%>">
                                     Delete
                                 </button>
@@ -76,22 +76,21 @@
                             <!-- Modal body -->
                             <div class="modal-body">
                                 <form action="/update_user" method="POST" id="update_user">
-                      
+                                    <div class="form-group">
+                                        <label for="id">Id:</label>
+                                        <input type="text" class="form-control" id="update_id"
+                                         placeholder="Enter Id" 
+                                        name="id" required>
+                                    </div>
                                     <div class="form-group">
                                         <label for="name">Name:</label>
-                                        <input type="text" class="form-control" id="update_name" placeholder="Enter First name" name="name" required>
+                                        <input type="text" class="form-control" 
+                                        id="update_name" placeholder="Enter First name" name="name" required>
                                     </div>
                                     <div class="form-group">
-                                        <label for="city">City:</label>
-                                        <input type="text" class="form-control" id="update_city" placeholder="Enter City" name="city">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="phone">Phone:</label>
-                                        <input type="email" class="form-control" id="update_phone" placeholder="Enter phone" name="phone">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="class">Class:</label>
-                                        <input type="class" class="form-control" id="update_class" placeholder="Enter class" name="class">
+                                        <label for="email">Email:</label>
+                                        <input type="text" class="form-control" id="update_email" 
+                                        placeholder="Enter Email" name="email" required>
                                     </div>
                                 </form>
                   
@@ -108,8 +107,27 @@
                 </div>
             </div>
         </div>
-        <script type="text/javascript" src="delete.js"></script>
         <script type="text/javascript">
-       
+            $(document).ready(function(){
+                $('#myTable').DataTable()
+            })
+            $('.update').click(function(){
+                //id=this.id;
+                $.ajax({
+                    type:'POST',
+                    url:'/find_by_id',
+                    data:{"id":489},
+                    success:function(data){
+                        alert(data)
+                        
+                        $('#update_id').attr("value",data[0].id);
+                        $('#update_name').attr("value",data[0].name);
+                        $('#update_email').attr("value",data[0].email);
+                        $('#Model').model({show:true})
+                    },error:function(){
+                        alert('No Data')
+                    }
+                })
+            })
         </script>
     </body>
