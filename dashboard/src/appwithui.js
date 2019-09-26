@@ -52,9 +52,9 @@ app.post('/addUser',(req,res) => {
 
 
 app.post('/find_by_id',(req,res) => {
-    let id = req.body.id;
+    let name = req.body.name;
     db.collection(col_name)
-      .find({id:id})
+      .find({name:name})
       .toArray((err,result) =>{
           if(err) throw err;
           res.send(result)

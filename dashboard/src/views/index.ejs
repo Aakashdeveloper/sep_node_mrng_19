@@ -53,7 +53,7 @@
                             <td>
                                 <button type="button" class="update btn btn-warning"
                                  data-toggle="modal" data-target="#myModal"
-                                 id="<%=data[i].id%>">Edit</button>
+                                 id="<%=data[i].name%>">Edit</button>
                                 <button type="button" class="delete btn btn-danger" id="<%=data[i].name%>">
                                     Delete
                                 </button>
@@ -75,7 +75,7 @@
                     
                             <!-- Modal body -->
                             <div class="modal-body">
-                                <form action="/update_user" method="POST" id="update_user">
+                                <form action="/updateUser" method="POST" id="update_user">
                                     <div class="form-group">
                                         <label for="id">Id:</label>
                                         <input type="text" class="form-control" id="update_id"
@@ -85,7 +85,7 @@
                                     <div class="form-group">
                                         <label for="name">Name:</label>
                                         <input type="text" class="form-control" 
-                                        id="update_name" placeholder="Enter First name" name="name" required>
+                                        id="update_name" placeholder="Enter First name" name="name" readonly>
                                     </div>
                                     <div class="form-group">
                                         <label for="email">Email:</label>
@@ -112,14 +112,12 @@
                 $('#myTable').DataTable()
             })
             $('.update').click(function(){
-                //id=this.id;
+                name=this.id;
                 $.ajax({
                     type:'POST',
                     url:'/find_by_id',
-                    data:{"id":489},
-                    success:function(data){
-                        alert(data)
-                        
+                    data:{"name":name},
+                    success:function(data){                      
                         $('#update_id').attr("value",data[0].id);
                         $('#update_name').attr("value",data[0].name);
                         $('#update_email').attr("value",data[0].email);
@@ -129,5 +127,35 @@
                     }
                 })
             })
+            $('.delete').click(function(){
+                var response = confirm('Do you want to delete')
+                name = this.id
+                if(response == true){
+                    $.ajax({
+                       type:'DELETE',
+                       url:'/deleteuser',
+                       data:{"name":name},
+                       success:function(data){
+                           window.location.reload()
+                       }
+                    })
+                }else{
+                    console.log('Not deleted')
+                }
+            })
+            $(function(){
+                $('#update_table').on('click',function(e){
+                    var data = $('#update_user').serialize();
+                    $.ajax({
+                        url:'/updateUser',
+                        type:'PUT',
+                        data:data,
+                        success:function(data){
+                            console.log('updated')
+                        }
+                    })
+                })
+            })
+            
         </script>
     </body>
