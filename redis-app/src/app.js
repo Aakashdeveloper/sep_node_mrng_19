@@ -1,23 +1,41 @@
 import express from 'express';
-const app = express();
+import axios from 'axios';
+import redis from 'redis';
 const port = 7600;
+const app = express()
+const client = redis.createClient({
+    host:'localhost',
+    port: 6379});
 
-// Static file path
-app.use(express.static(__dirname+'/public'));
-// Html or view file
-app.set('views','./src/views');
-// template engine
-app.set('view engine','ejs');
-
-app.get('/',(req,res) => {
-    res.send('<h1>On home page</h1>')
-});
-
-app.get('/about',(req,res) => {
-    res.send('<h1>On about Page</h1>')
-});
+client.on('error',(err) => {
+    console.log(err)
+})
 
 
-app.listen(port,(err)=>{
-    console.log(`server is running on port ${port}`)
-});
+app.get('/data',(req,res) => {
+    const userinput = (req.query.country).trim()
+    const url = `https://en.m.wikipedia.org/w/api.php?action=parse&format=json&section=0&page=${userinput}`
+
+    return client.get(`wiki:${userinput}`,(err,result) => {
+        if(result){
+            const output = JSON.parse(result);
+            return res.status(200).json(output)
+        }else{
+            return axios.get(url)
+                .then(response => {
+                    const output = response.data
+                    client.setex(`wiki:${userinput}`,3600,JSON.stringify({source:'Redis cache',...output}))
+                    return res.status(200).json({source:'API...', ...output})
+                })
+                .catch(err => {
+                    return res.send(err)
+                })
+        }
+    })
+})
+
+
+
+app.listen(port,(err) => {
+    console.log(`Server is running on port ${port}`)
+})

@@ -107,3 +107,11 @@ babel
 
 npm install @babel/core @babel/preset-env @babel/register
 babel-polyfill
+
+npm i redis response-time axios
+
+
+
+set name aakash
+KEYS *
+get name
