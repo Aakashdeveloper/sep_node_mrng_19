@@ -20,7 +20,9 @@ router.post('/register', (req,res) => {
         password:hashedPassword
     },(err,user) => {
         if(err){return res.status(500).send('There was a probelm in registering user')}
-        res.send('registeration successful')
+        //res.send('registeration successful')
+        const stri = encodeURIComponent('Successfully register Please login Now')
+        res.redirect('/signin?msg='+stri)
     })
 })
 
@@ -34,20 +36,21 @@ router.post('/login',(req,res) => {
             var token = jwt.sign({id:user._id}, config.secert,{
                 expiresIn:86400
             })
-            res.status(200).send({auth:true,token:token})
+            localStorage.setItem('authtoken',token)
+            res.redirect('/user/profile')
+            //res.status(200).send({auth:true,token:token})
         }
     })
 })
 
-router.get('/profile', (req,res) => {
+router.get('/loginuser', (req,res) => {
     var token = req.headers['x-access-token'];
     if(!token) res.status(401).send({auth:false, message:'No Token Provided'})
     jwt.verify(token, config.secert,(err,decode) => {
         if(err) return res.status(401).send({auth:false,message:'Fail to validate'})
-        User.findById(decode.id, {password:0}, (err,userr) => {
+        User.findById(decode.id, {password:0}, (err,user) => {
             if(err) res.send('Problem in finding user')
             if(!user) res.status(404).send('No User found')
-
             res.send(user)
         })
     })

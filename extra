@@ -120,3 +120,5 @@ get name
 
 npm i express jsonwebtoken mongoose ejs bcryptjs 
 node-localstorage body-parser express-session
+
+ npm i gitignore

@@ -5,6 +5,6 @@ const UserSchema = new mongoose.Schema({
     password:String
 })
 
-mongoose.model('SepNode',UserSchema)
+mongoose.model('sepjwt',UserSchema)
 
-module.exports = mongoose.model('SepNode')
+module.exports = mongoose.model('sepjwt')
