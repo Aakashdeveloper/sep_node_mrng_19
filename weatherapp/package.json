@@ -4,7 +4,8 @@
   "description": "this is weather app",
   "main": "index.js",
   "scripts": {
-    "start":"nodemon app.js"
+    "start": "nodemon app.js",
+    "test": "mocha --timeout 10000"
   },
   "keywords": [
     "node",
@@ -13,8 +14,11 @@
   "author": "nareshit",
   "license": "ISC",
   "dependencies": {
+    "chai": "^4.2.0",
+    "chai-http": "^4.3.0",
     "ejs": "^2.7.1",
     "express": "^4.17.1",
+    "mocha": "^6.2.1",
     "request": "^2.88.0"
   }
 }
